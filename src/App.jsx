@@ -1,24 +1,24 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import "./App.css";
-import ListaTarefas from "./components/ListaTarefas";
-import ConsumidorAPI from "./components/ConsumidorAPI";
-import Dashboard from "./components/Dashboard";
 import { CheckSquare, Users, LayoutDashboard } from "lucide-react";
+import LoadingSpinner from "./components/LoadingSpinner";
+
+// Lazy loading dos componentes
+const ListaTarefas = lazy(() => import("./components/ListaTarefas"));
+const ConsumidorAPI = lazy(() => import("./components/ConsumidorAPI"));
+const Dashboard = lazy(() => import("./components/Dashboard"));
 
 function App() {
   const [paginaAtual, setPaginaAtual] = useState("tarefas");
 
   const renderizarPagina = () => {
-    switch (paginaAtual) {
-      case "tarefas":
-        return <ListaTarefas />;
-      case "usuarios":
-        return <ConsumidorAPI />;
-      case "dashboard":
-        return <Dashboard />;
-      default:
-        return <ListaTarefas />;
-    }
+    return (
+      <Suspense fallback={<LoadingSpinner />}>
+        {paginaAtual === "tarefas" && <ListaTarefas />}
+        {paginaAtual === "usuarios" && <ConsumidorAPI />}
+        {paginaAtual === "dashboard" && <Dashboard />}
+      </Suspense>
+    );
   };
 
   return (
