@@ -12,8 +12,7 @@ import {
   Phone,
   Building2,
   MapPin,
-  Trash2,
-  ChevronRight
+  Trash2
 } from "lucide-react";
 
 function Dashboard() {
@@ -326,7 +325,6 @@ function Dashboard() {
                       <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Informações
                       </th>
-                      
                       <th scope="col" className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Ações
                       </th>
