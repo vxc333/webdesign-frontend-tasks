@@ -1,6 +1,6 @@
-import { Mail, Phone, Building2, MapPin, Trash2 } from "lucide-react";
+import { Mail, Phone, Building2, MapPin, Trash2, Edit } from "lucide-react";
 
-function UsuariosCards({ usuarios, excluirUsuario }) {
+function UsuariosCards({ usuarios, excluirUsuario, editarUsuario }) {
   return (
     <div className="md:hidden grid grid-cols-1 gap-4">
       {usuarios.map((usuario) => (
@@ -13,12 +13,20 @@ function UsuariosCards({ usuarios, excluirUsuario }) {
                 {usuario.email}
               </a>
             </div>
-            <button
-              onClick={() => excluirUsuario(usuario.id)}
-              className="text-red-600 hover:text-red-900 p-1 rounded-full hover:bg-red-50"
-            >
-              <Trash2 size={16} />
-            </button>
+            <div className="flex space-x-2">
+              <button
+                onClick={() => editarUsuario(usuario.id)}
+                className="text-blue-600 hover:text-blue-900 p-1 rounded-full hover:bg-blue-50"
+              >
+                <Edit size={16} />
+              </button>
+              <button
+                onClick={() => excluirUsuario(usuario.id)}
+                className="text-red-600 hover:text-red-900 p-1 rounded-full hover:bg-red-50"
+              >
+                <Trash2 size={16} />
+              </button>
+            </div>
           </div>
           <div className="text-sm text-gray-600 space-y-1">
             <p className="flex items-center gap-2">

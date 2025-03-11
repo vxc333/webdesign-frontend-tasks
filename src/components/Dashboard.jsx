@@ -5,6 +5,7 @@ import LoadingSpinner from "./LoadingSpinner";
 import ErrorMessage from "./ErrorMessage";
 import SideMenu from "./dashboard/SideMenu";
 import UsuarioForm from "./dashboard/UsuarioForm";
+import UsuarioEditForm from "./dashboard/UsuarioEditForm";
 import UsuariosTable from "./dashboard/UsuariosTable";
 import UsuariosCards from "./dashboard/UsuariosCards";
 
@@ -15,12 +16,23 @@ function Dashboard() {
     erro, 
     buscarUsuarios, 
     adicionarUsuario, 
+    editarUsuario,
     excluirUsuario 
   } = useUsuarios();
   
   const [menuAberto, setMenuAberto] = useState(false);
   const [modalAberto, setModalAberto] = useState(false);
+  const [modalEdicaoAberto, setModalEdicaoAberto] = useState(false);
+  const [usuarioSelecionado, setUsuarioSelecionado] = useState(null);
   const [novoUsuario, setNovoUsuario] = useState({
+    nome: "",
+    email: "",
+    telefone: "",
+    empresa: "",
+    cidade: ""
+  });
+  const [usuarioEditando, setUsuarioEditando] = useState({
+    id: null,
     nome: "",
     email: "",
     telefone: "",
@@ -61,6 +73,29 @@ function Dashboard() {
     });
   };
 
+  const abrirModalEdicao = (id) => {
+    const usuario = usuarios.find(u => u.id === id);
+    if (usuario) {
+      setUsuarioEditando({...usuario});
+      setUsuarioSelecionado(id);
+      setModalEdicaoAberto(true);
+      setCamposComErro({});
+    }
+  };
+
+  const fecharModalEdicao = () => {
+    setModalEdicaoAberto(false);
+    setUsuarioEditando({
+      id: null,
+      nome: "",
+      email: "",
+      telefone: "",
+      empresa: "",
+      cidade: ""
+    });
+    setUsuarioSelecionado(null);
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNovoUsuario({
@@ -76,28 +111,43 @@ function Dashboard() {
     }
   };
 
-  const validarFormulario = () => {
+  const handleEditInputChange = (e) => {
+    const { name, value } = e.target;
+    setUsuarioEditando({
+      ...usuarioEditando,
+      [name]: value
+    });
+    
+    if (camposComErro[name]) {
+      setCamposComErro({
+        ...camposComErro,
+        [name]: false
+      });
+    }
+  };
+
+  const validarFormulario = (usuario) => {
     const erros = {};
     
-    if (!novoUsuario.nome.trim()) {
+    if (!usuario.nome.trim()) {
       erros.nome = "Nome é obrigatório";
     }
     
-    if (!novoUsuario.email.trim()) {
+    if (!usuario.email.trim()) {
       erros.email = "Email é obrigatório";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(novoUsuario.email)) {
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(usuario.email)) {
       erros.email = "Email inválido";
     }
     
-    if (!novoUsuario.telefone.trim()) {
+    if (!usuario.telefone.trim()) {
       erros.telefone = "Telefone é obrigatório";
     }
     
-    if (!novoUsuario.empresa.trim()) {
+    if (!usuario.empresa.trim()) {
       erros.empresa = "Empresa é obrigatória";
     }
 
-    if (!novoUsuario.cidade.trim()) {
+    if (!usuario.cidade.trim()) {
       erros.cidade = "Cidade é obrigatória";
     }
     
@@ -108,7 +158,7 @@ function Dashboard() {
   const handleAdicionarUsuario = (e) => {
     e.preventDefault();
     
-    if (!validarFormulario()) {
+    if (!validarFormulario(novoUsuario)) {
       return;
     }
     
@@ -117,6 +167,21 @@ function Dashboard() {
     if (sucesso) {
       fecharModal();
       alert("Usuário adicionado com sucesso!");
+    }
+  };
+
+  const handleEditarUsuario = (e) => {
+    e.preventDefault();
+    
+    if (!validarFormulario(usuarioEditando)) {
+      return;
+    }
+    
+    const sucesso = editarUsuario(usuarioSelecionado, usuarioEditando);
+    
+    if (sucesso) {
+      fecharModalEdicao();
+      alert("Usuário atualizado com sucesso!");
     }
   };
 
@@ -165,24 +230,37 @@ function Dashboard() {
             <>
               <UsuariosTable 
                 usuarios={usuarios} 
-                excluirUsuario={handleExcluirUsuario} 
+                excluirUsuario={handleExcluirUsuario}
+                editarUsuario={abrirModalEdicao}
               />
               
               <UsuariosCards 
                 usuarios={usuarios} 
-                excluirUsuario={handleExcluirUsuario} 
+                excluirUsuario={handleExcluirUsuario}
+                editarUsuario={abrirModalEdicao}
               />
             </>
           )}
         </div>
       </div>
 
+      {/* Modal de Adicionar Usuário */}
       <UsuarioForm 
         modalAberto={modalAberto}
         fecharModal={fecharModal}
         novoUsuario={novoUsuario}
         handleInputChange={handleInputChange}
         adicionarUsuario={handleAdicionarUsuario}
+        camposComErro={camposComErro}
+      />
+
+      {/* Modal de Editar Usuário */}
+      <UsuarioEditForm 
+        modalAberto={modalEdicaoAberto}
+        fecharModal={fecharModalEdicao}
+        usuario={usuarioEditando}
+        handleInputChange={handleEditInputChange}
+        editarUsuario={handleEditarUsuario}
         camposComErro={camposComErro}
       />
     </div>

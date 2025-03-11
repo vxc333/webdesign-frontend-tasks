@@ -1,6 +1,6 @@
-import { Mail, Phone, Building2, MapPin, Trash2 } from "lucide-react";
+import { Mail, Phone, Building2, MapPin, Trash2, Edit } from "lucide-react";
 
-function UsuariosTable({ usuarios, excluirUsuario }) {
+function UsuariosTable({ usuarios, excluirUsuario, editarUsuario }) {
   return (
     <div className="hidden md:block overflow-x-auto bg-white rounded-lg shadow">
       <table className="w-full divide-y divide-gray-200">
@@ -55,12 +55,22 @@ function UsuariosTable({ usuarios, excluirUsuario }) {
                 </div>
               </td>
               <td className="px-4 py-3 whitespace-nowrap text-right text-sm">
-                <button
-                  onClick={() => excluirUsuario(usuario.id)}
-                  className="text-red-600 hover:text-red-900 p-1 rounded-full hover:bg-red-50"
-                >
-                  <Trash2 size={18} />
-                </button>
+                <div className="flex justify-end space-x-2">
+                  <button
+                    onClick={() => editarUsuario(usuario.id)}
+                    className="text-blue-600 hover:text-blue-900 p-1 rounded-full hover:bg-blue-50"
+                    title="Editar usuário"
+                  >
+                    <Edit size={18} />
+                  </button>
+                  <button
+                    onClick={() => excluirUsuario(usuario.id)}
+                    className="text-red-600 hover:text-red-900 p-1 rounded-full hover:bg-red-50"
+                    title="Excluir usuário"
+                  >
+                    <Trash2 size={18} />
+                  </button>
+                </div>
               </td>
             </tr>
           ))}

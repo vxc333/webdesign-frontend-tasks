@@ -51,6 +51,23 @@ export function useUsuarios() {
     return true;
   };
 
+  const editarUsuario = (id, dadosAtualizados) => {
+    const usuarioIndex = usuarios.findIndex(usuario => usuario.id === id);
+    
+    if (usuarioIndex === -1) {
+      return false;
+    }
+    
+    const usuariosAtualizados = [...usuarios];
+    usuariosAtualizados[usuarioIndex] = {
+      ...usuariosAtualizados[usuarioIndex],
+      ...dadosAtualizados
+    };
+    
+    setUsuarios(usuariosAtualizados);
+    return true;
+  };
+
   const excluirUsuario = (id) => {
     setUsuarios(usuarios.filter(usuario => usuario.id !== id));
   };
@@ -72,6 +89,7 @@ export function useUsuarios() {
     erro,
     buscarUsuarios,
     adicionarUsuario,
+    editarUsuario,
     excluirUsuario,
     filtrarUsuarios
   };
