@@ -4,9 +4,9 @@
 
 Este projeto é uma aplicação React desenvolvida com Vite e Tailwind CSS, consistindo em três tarefas principais:
 
-1. **Lista de Tarefas** - Um gerenciador de tarefas com armazenamento local
-2. **Consumidor API** - Uma interface para visualização de dados de usuários da API JSONPlaceholder
-3. **Dashboard** - Um painel administrativo com funcionalidades de gerenciamento de usuários
+1. **Tarefa 1 - Criar um To-Do List** - Um gerenciador de tarefas com armazenamento local
+2. **Tarefa 2 - Consumo de API** - Uma interface para visualização de dados de usuários da API JSONPlaceholder
+3. **Tarefa 3 - Criação de um Dashboard Simples com Tailwind** - Um painel administrativo com funcionalidades de gerenciamento de usuários
 
 ## Estrutura do Projeto
 
@@ -183,7 +183,6 @@ const Dashboard = lazy(() => import("./components/Dashboard"));
 - **Vite** - Ferramenta de build rápida para desenvolvimento
 - **Tailwind CSS** - Framework CSS utilitário
 - **Lucide React** - Biblioteca de ícones
-- **localStorage** - API para armazenamento local de dados
 - **Fetch API** - Para requisições HTTP
 
 ## Como Executar o Projeto
@@ -201,12 +200,3 @@ npm run build
 # Visualizar build de produção
 npm run preview
 ```
-
-## Melhorias Recentes
-
-1. **Refatoração de Componentes** - Separação em componentes menores e mais focados
-2. **Criação de Hooks Personalizados** - Separação da lógica de negócio
-3. **Melhorias de Responsividade** - Ajustes para melhor adaptação em telas pequenas:
-   - Botões adaptáveis em formulários
-   - Layout responsivo para o Dashboard
-   - Melhor organização de elementos em telas pequenas
