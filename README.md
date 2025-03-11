@@ -8,6 +8,10 @@ Este projeto é uma aplicação React desenvolvida com Vite e Tailwind CSS, cons
 2. **Tarefa 2 - Consumo de API** - Uma interface para visualização de dados de usuários da API JSONPlaceholder
 3. **Tarefa 3 - Criação de um Dashboard Simples com Tailwind** - Um painel administrativo com funcionalidades de gerenciamento de usuários
 
+## Demo Online
+
+Acesse a versão de demonstração do projeto: [https://webdesign-frontend-tasks.vercel.app/](https://webdesign-frontend-tasks.vercel.app/)
+
 ## Estrutura do Projeto
 
 ### Componentes Principais
@@ -184,6 +188,7 @@ const Dashboard = lazy(() => import("./components/Dashboard"));
 - **Tailwind CSS** - Framework CSS utilitário
 - **Lucide React** - Biblioteca de ícones
 - **Fetch API** - Para requisições HTTP
+- **Vercel** - Plataforma para deploy e hospedagem
 
 ## Como Executar o Projeto
 
