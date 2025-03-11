@@ -78,9 +78,9 @@ const {
 ### Dashboard
 
 - Menu lateral responsivo
-- Gerenciamento de usuários (adicionar, excluir)
+- Gerenciamento de usuários (adicionar, editar, excluir)
 - Visualização adaptativa (tabela em telas grandes, cards em telas pequenas)
-- Formulário de adição com validação
+- Formulário de adição e edição com validação
 
 ```jsx
 // Exemplo de uso do hook useUsuarios no Dashboard
@@ -89,7 +89,8 @@ const {
   carregando, 
   erro, 
   buscarUsuarios, 
-  adicionarUsuario, 
+  adicionarUsuario,
+  editarUsuario,
   excluirUsuario 
 } = useUsuarios();
 ```
